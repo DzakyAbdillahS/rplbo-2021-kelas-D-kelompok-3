@@ -15,7 +15,7 @@ class DaftarSuratMasukController extends Controller
     public function index()
     {
         $datas = DaftarSuratMasuk::all();
-        return view('surat-masuk.surat-masuk',[
+        return view('suratmasuk.SuratMasuk',[
             'datas'=> $datas
         ]);
     }
@@ -27,7 +27,7 @@ class DaftarSuratMasukController extends Controller
      */
     public function create()
     {
-        return view('surat-masuk.tambah-surat-masuk');
+        return view('suratmasuk.TambahSuratMasuk');
     }
 
     /**

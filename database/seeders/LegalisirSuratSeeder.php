@@ -17,7 +17,7 @@ class LegalisirSuratSeeder extends Seeder
         LegalisirSurat::create([
             'nama_siswa'=>'joy',
             'nis'=>'14110',
-            'alamat_surat'=>'jl. sidomulyo',
+            'alamat_siswa'=>'jl. sidomulyo',
             'no_telephone'=>'089981',
             'file_surat'=>'jek.pdf',
             'isAccepted'=>'1',

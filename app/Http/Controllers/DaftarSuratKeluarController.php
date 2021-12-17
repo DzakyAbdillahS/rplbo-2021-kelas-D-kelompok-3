@@ -15,7 +15,7 @@ class DaftarSuratKeluarController extends Controller
     public function index()
     {
         $datas = DaftarSuratKeluar::all();
-        return view('surat-keluar.surat-keluar', [
+        return view('suratkeluar.SuratKeluar', [
             'datas'=> $datas
         ]);
     }
