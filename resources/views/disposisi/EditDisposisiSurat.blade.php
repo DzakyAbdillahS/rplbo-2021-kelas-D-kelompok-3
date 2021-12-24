@@ -18,21 +18,23 @@
         <div class="col-md-6">
 
           <!-- form start -->
-          <form>
+          <form method="POST" action="{{ url('/disposisi-surat'.'/'.$surat_ids.'/edit'.'/'.$disposisi_ids) }}">
+            @csrf
             <div class="card-body">
+                @method('put')
               <div class="form-group">
-                <label for="tglpenyelesaian">Tgl. Penyelesaian</label>
-                <input type="date" class="form-control" id="tglpenyelesaian" value="2-10-2021">
+                <label for="tanggal_penyelesaian">Tgl. Penyelesaian</label>
+                <input type="date" class="form-control" id="tanggal_penyelesaian" name="tanggal_penyelesaian" value="{{ old('tanggal_penyelesaian') ?? $data->tanggal_penyelesaian }}">
               </div>
 
               <div class="form-group">
-                <label for="instruksi">Instruksi</label>
-                <input type="text" class="form-control" id="instruksi" value="segerakan">
+                <label for="instruksi_disposisi">Instruksi Disposisi</label>
+                <input type="text" class="form-control" id="instruksi_disposisi" name="instruksi_disposisi" value="{{ old('instruksi_disposisi') ?? $data->instruksi_disposisi }}">
               </div>
 
               <div class="form-group">
-                <label for="asalsurat">Tujuan Disposisi</label>
-                <input type="text" class="form-control" id="asalsurat" value="Staff TU">
+                <label for="tujuan_disposisi">Tujuan Disposisi</label>
+                <input type="text" class="form-control" id="tujuan_disposisi" name="tujuan_disposisi" value="{{ old('tujuan_disposisi') ?? $data->tujuan_disposisi }}">
               </div>
 
               <button type="submit" class="btn btn-primary">Simpan</button>

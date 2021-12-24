@@ -21,7 +21,7 @@
           <form method="POST" action="{{ url('manajemen-user/'.$data->id) }}">
             @csrf
             <div class="card-body">
-            <input type="hidden" name="_method" value="PATCH">
+            @method('put')
               <div class="form-group">
                 <label for="nama">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') ?? $data->nama }}">
@@ -33,21 +33,25 @@
               </div>
 
               <div class="form-group">
-                <label for="email">email</label>
+                <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') ?? $data->email }}">
               </div>
 
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" value="{{ old('password') ?? $data->password }}">
+                <input type="password" class="form-control" id="password" name="password">
               </div>
 
               <div class="form-group">
                 <label for="role">Role</label>
                 <select name="role" class="form-control" name="role">
+                    <option value="Alumni">Alumni</option>
+                    <option value="Kepala Sekolah">Kepala Sekolah</option>
+                    <option value="Kepala TU">Kepala TU</option>
+                    <option value="Resepsionis">Resepsionis</option>
                     <option value="Staff TU" >Staff TU</option>
                     <option value="Siswa">Siswa</option>
-                    <option value="Resepsionis">Resepsionis</option>
+
                 </select>
               </div>
 

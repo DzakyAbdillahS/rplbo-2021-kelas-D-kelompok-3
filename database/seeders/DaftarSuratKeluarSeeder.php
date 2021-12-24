@@ -14,14 +14,6 @@ class DaftarSuratKeluarSeeder extends Seeder
      */
     public function run()
     {
-        DaftarSuratKeluar::create([
-            'kode_surat'=>'SM-001',
-            'tujuan_surat'=>'SMAN 4',
-            'tanggal_surat'=>'15-12-2021',
-            'index_surat'=>'Surat Perizinan',
-            'file_surat'=>'jek.pdf',
-            'jumlah_lampiran_surat'=>'2'
 
-        ]);
     }
 }

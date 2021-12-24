@@ -38,16 +38,30 @@ class DaftarSuratMasukController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        DaftarSuratMasuk::create([
-            'kode_surat'=>$data['kode_surat'],
-            'tanggal_surat'=>$data['tanggal_surat'],
-            'asal_surat'=>$data['asal_surat'],
-            'index_surat'=>$data['index_surat'],
-            'isi_surat'=>$data['isi_surat'],
-            'file_surat'=>$data['file_surat'],
-            'jumlah_lampiran_surat'=>$data['jumlah_lampiran_surat']
+        Request()->validate([
+            'kode_surat'=>'required',
+            'tanggal_surat'=>'required',
+            'asal_surat'=>'required',
+            'index_surat'=>'required',
+            'file_surat'=>'required|mimes:pdf|max:2048',
+            'jumlah_lampiran'=>'required'
         ]);
+
+        $file = Request()->file_surat;
+        $fileName = Request()->kode_surat . '.' . $file->extension();
+        $file->move(public_path('surat masuk'), $fileName);
+
+
+        DaftarSuratMasuk::create([
+            'kode_surat'=>Request()->kode_surat,
+            'tanggal_surat'=>Request()->tanggal_surat,
+            'asal_surat'=>Request()->asal_surat,
+            'index_surat'=>Request()->index_surat,
+            'file_surat'=>$fileName,
+            'jumlah_lampiran'=>Request()->jumlah_lampiran
+        ]);
+
+        return redirect('surat-masuk')->with('success', 'Surat Masuk Ditambah!');
     }
 
     /**
@@ -67,9 +81,12 @@ class DaftarSuratMasukController extends Controller
      * @param  \App\Models\DaftarSuratMasuk  $daftarSuratMasuk
      * @return \Illuminate\Http\Response
      */
-    public function edit(DaftarSuratMasuk $daftarSuratMasuk)
+    public function edit($id)
     {
-        //
+        $data=DaftarSuratMasuk::find($id);
+        return view('suratmasuk.EditSuratMasuk',[
+            'data'=>$data
+        ]);
     }
 
     /**
@@ -79,9 +96,32 @@ class DaftarSuratMasukController extends Controller
      * @param  \App\Models\DaftarSuratMasuk  $daftarSuratMasuk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DaftarSuratMasuk $daftarSuratMasuk)
+    public function update(Request $request, $id)
     {
-        //
+
+        $suratmasuk = DaftarSuratMasuk::find($id);
+        $data = $request ->all();
+
+        $file = Request()->file_surat;
+        $fileName = Request()->kode_surat . '.' . $file->extension();
+
+        if ($data['file_surat']){
+            unlink(public_path('surat masuk/'. $suratmasuk->file_surat));
+            $file->move(public_path('surat masuk'), $fileName);
+            if ($suratmasuk->file_name) {
+                unlink(public_path('surat masuk/'. $suratmasuk->file_surat));
+            }
+        }
+
+        $suratmasuk->update([
+            'tanggal_surat'=> $data['tanggal_surat'],
+            'asal_surat'=> ($data['asal_surat']),
+            'index_surat'=> $data['index_surat'],
+            'file_surat'=> $fileName,
+            'jumlah_lampiran'=> $data['jumlah_lampiran']
+        ]);
+
+        return redirect()->route('surat-masuk.index')->with('success', 'Surat Masuk Diubah!');
     }
 
     /**
@@ -90,8 +130,13 @@ class DaftarSuratMasukController extends Controller
      * @param  \App\Models\DaftarSuratMasuk  $daftarSuratMasuk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DaftarSuratMasuk $daftarSuratMasuk)
+    public function destroy($id)
     {
-        //
+        $suratmasuk = DaftarSuratMasuk::find($id);
+        if ($suratmasuk->file_surat<> "") {
+            unlink(public_path('surat masuk') . '/' . $suratmasuk->file_surat);
+        }
+        $suratmasuk->delete();
+        return redirect('surat-masuk')->with('success', 'Data Berhasil Dihapus!');
     }
 }

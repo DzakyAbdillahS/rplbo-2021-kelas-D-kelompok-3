@@ -97,28 +97,145 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($datas as $data)
 
-                  <tr>
-                    <td>{{ $loop->index+1 }}</td>
-                    <td>{{ $data->nama }}</td>
-                    <td>{{ $data->nis }}</td>
-                    <td>{{ $data->alamat_siswa }}</td>
-                    <td>{{ $data->no_telephone }}</td>
-                    <td>{{ $data->file_surat }}</td>
-                    <td>{{ $data->isDone }}</td>
-                    <td>
-                      <a href="#" class="btn btn-primary btn-sm">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <button class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i>
-                      </button>
+                    @forelse ($datas as $data)
+                    @if ($data->status=='Menunggu Persetujuan' && Auth::user()->role=='Resepsionis')
+                    <tr>
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $data->nama }}</td>
+                        <td>{{ $data->nis }}</td>
+                        <td>{{ $data->alamat }}</td>
+                        <td>{{ $data->no_telp }}</td>
+                        <td>{{ $data->file_surat }}</td>
+                        <td>{{ $data->status }}</td>
+                        <td>
+                            <div class="row">
+                                <a href="{{ url('legalisir-surat/'.$data->id.'/edit') }}" class="btn btn-primary btn-sm mr-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                </a>
+                                <a class="btn btn-danger btn-sm mr-1" data-toggle="modal" data-target="#modal-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
 
-                    </td>
-                  </tr>
+                            <div class="modal fade" id="modal-sm">
+                                <div class="modal-dialog modal-sm">
+                                  <div class="modal-content">
 
-                  @endforeach
+                                    <div class="modal-body">
+                                      <h4 class="text-center mt-1">Yakin Ingin Menghapus <br/> Data Ini?</h4>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <form action="{{ url('pengajuan-surat/'.$data->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-md" type="submit">
+                                                YES
+                                            </button>
+                                        </form>
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                              <!-- /.modal -->
+                        </td>
+                    </tr>
+
+                    @elseif($data->status != 'Menunggu Persetujuan')
+                    <tr>
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $data->nama }}</td>
+                        <td>{{ $data->nis }}</td>
+                        <td>{{ $data->alamat }}</td>
+                        <td>{{ $data->no_telp }}</td>
+                        <td>{{ $data->file_surat }}</td>
+                        <td>{{ $data->status }}</td>
+                        <td>
+                            @if ($data->status=='Menunggu Persetujuan' && Auth::user()->role=='Resepsionis')
+                            <div class="row">
+                                <a href="{{ url('legalisir-surat/'.$data->id.'/edit') }}" class="btn btn-primary btn-sm mr-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                </a>
+                                <a class="btn btn-danger btn-sm mr-1" data-toggle="modal" data-target="#modal-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+
+                            <div class="modal fade" id="modal-sm">
+                                <div class="modal-dialog modal-sm">
+                                  <div class="modal-content">
+
+                                    <div class="modal-body">
+                                      <h4 class="text-center mt-1">Yakin Ingin Menghapus <br/> Data Ini?</h4>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <form action="{{ url('pengajuan-surat/'.$data->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-md" type="submit">
+                                                YES
+                                            </button>
+                                        </form>
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                              <!-- /.modal -->
+
+                              @elseif ($data->status=='Sedang Diproses' && Auth::user()->role=='Staff TU')
+
+                              <div class="row">
+                                  <a href="{{ url('legalisir-surat/'.$data->id.'/edit') }}" class="btn btn-primary btn-sm mr-1">
+                                      <i class="fas fa-edit"></i>
+                                  </a>
+                                  </a>
+                                  <a class="btn btn-danger btn-sm mr-1" data-toggle="modal" data-target="#modal-sm">
+                                      <i class="fas fa-trash"></i>
+                                  </a>
+                              </div>
+
+                              <div class="modal fade" id="modal-sm">
+                                  <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+
+                                      <div class="modal-body">
+                                        <h4 class="text-center mt-1">Yakin Ingin Menghapus <br/> Data Ini?</h4>
+                                      </div>
+                                      <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          <form action="{{ url('pengajuan-surat/'.$data->id) }}" method="POST">
+                                              @csrf
+                                              @method('delete')
+                                              <button class="btn btn-danger btn-md" type="submit">
+                                                  YES
+                                              </button>
+                                          </form>
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                              </div>
+                              @endif
+
+                        </td>
+                    </tr>
+                    @endif
+
+                    @empty
+                    <tr>
+                        <td colspan="8" class="text-center bg-light">DATA BELUM ADA</td>
+                    </tr>
+
+                    @endforelse
 
                 </tbody>
               </table>

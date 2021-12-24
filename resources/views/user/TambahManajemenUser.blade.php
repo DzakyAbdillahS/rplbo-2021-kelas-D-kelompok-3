@@ -23,30 +23,54 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="nama">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" >
+                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" >
+                <div class="text-danger">
+                    @error('nama')
+                        {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="nis">NIP / NIS</label>
-                <input type="text" class="form-control" id="nip_nis" name="nip_nis">
+                <input type="text" class="form-control @error('nip_nis') is-invalid @enderror" id="nip_nis" name="nip_nis">
+                <div class="text-danger">
+                    @error('nip_nis')
+                        {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="email">email</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <label for="email">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email">
+                <div class="text-danger">
+                    @error('email')
+                        {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                <div class="text-danger">
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="alamat">Role</label>
                 <select name="role" class="form-control ">
+                    <option value="Alumni">Alumni</option>
+                    <option value="Kepala Sekolah">Kepala Sekolah</option>
+                    <option value="Kepla TU">Kepala TU</option>
+                    <option value="Resepsionis">Resepsionis</option>
                     <option value="Staff TU" >Staff TU</option>
                     <option value="Siswa">Siswa</option>
-                    <option value="Resepsionis">Resepsionis</option>
+
                 </select>
               </div>
 

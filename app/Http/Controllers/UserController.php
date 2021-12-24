@@ -38,15 +38,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        Request()->validate([
+            'nama'=>'required',
+            'email'=>'required',
+            'password'=>'required',
+            'nip_nis'=>'required',
+            'role'=>'required',
+        ]);
+
         $data = $request ->all();
         User::create([
-            'nama'=> $data['nama'],
-            'email'=> $data['email'],
-            'password'=>bcrypt($data['password']),
-            'nip_nis'=>$data['nip_nis'],
-            'role'=>$data['role']
+            'nama'=> request()->nama,
+            'email'=> request()->email,
+            'password'=> bcrypt(request()->password),
+            'nip_nis'=> request()->nip_nis,
+            'role'=> request()->role
         ]);
-        return redirect('manajemen-user');
+        return redirect('manajemen-user')->with('success', 'User Berhasil Ditambah!');
     }
 
     /**
@@ -94,7 +102,7 @@ class UserController extends Controller
         if($user['password'] !== null) {
             $user->update(['password' => bcrypt($data['password'])]);
         }
-        return redirect('manajemen-user');
+        return redirect('manajemen-user')->with('success', 'User Berhasil Diubah!');
     }
 
     /**
@@ -107,6 +115,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('manajemen-user');
+        return redirect('manajemen-user')->with('success', 'Data Berhasil Dihapus!');
     }
 }

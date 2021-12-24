@@ -15,13 +15,12 @@ class CreateLegalisirSuratsTable extends Migration
     {
         Schema::create('legalisir_surats', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_siswa');
+            $table->string('nama');
             $table->string('nis');
-            $table->string('alamat_siswa');
-            $table->string('no_telephone');
-            $table->string('file_surat');
-            $table->boolean('isAccepted');
-            $table->boolean('isDone');
+            $table->string('alamat');
+            $table->string('no_telp');
+            $table->String('file_surat');
+            $table->string('status');
             $table->timestamps();
         });
     }

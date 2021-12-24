@@ -14,14 +14,6 @@ class DaftarSuratMasukSeeder extends Seeder
      */
     public function run()
     {
-        DaftarSuratMasuk::create([
-            'kode_surat'=>'SM-001',
-            'tanggal_surat'=>'14-02-2001',
-            'asal_surat'=>'jek',
-            'index_surat'=>'Surat Perizinan',
-            'file_surat'=>'jek.pdf',
-            'jumlah_lampiran_surat'=>'2'
 
-        ]);
     }
 }

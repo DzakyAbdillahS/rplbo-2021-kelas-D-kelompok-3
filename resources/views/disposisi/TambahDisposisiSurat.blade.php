@@ -18,21 +18,37 @@
         <div class="col-md-6">
 
           <!-- form start -->
-          <form>
+          <form method="POST" action="{{ route('disposisi-surat.store',$id) }}">
+            @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="tglpenyelesaian">Tgl. Penyelesaian</label>
-                <input type="date" class="form-control" id="tglpenyelesaian">
+                <label for="tanggal_penyelesaian">Tgl. Penyelesaian</label>
+                <input type="date" class="form-control @error('tanggal_penyelesaian') is-invalid @enderror" id="tanggal_penyelesaian" name="tanggal_penyelesaian">
+                <div class="text-danger">
+                    @error('tanggal_penyelesaian')
+                    {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="instruksi">Instruksi</label>
-                <input type="text" class="form-control" id="instruksi" >
+                <label for="instruksi_disposisi">Instruksi</label>
+                <input type="text" class="form-control @error('instruksi_disposisi') is-invalid @enderror" id="instruksi_disposisi" name="instruksi_disposisi">
+                <div class="text-danger">
+                    @error('instruksi_disposisi')
+                    {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="asalsurat">Tujuan Disposisi</label>
-                <input type="text" class="form-control" id="asalsurat" >
+                <label for="tujuan_disposisi">Tujuan Disposisi</label>
+                <input type="text" class="form-control @error('tujuan_disposisi') is-invalid @enderror" id="tujuan_disposisi" name="tujuan_disposisi">
+                <div class="text-danger">
+                    @error('tujuan_disposisi')
+                    {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <button type="submit" class="btn btn-primary">Simpan</button>

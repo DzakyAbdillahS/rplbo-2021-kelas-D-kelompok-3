@@ -16,7 +16,7 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-12">
-            <a href="#" class="btn btn-primary btn-sm mb-2">+ Tambah</a>
+            <a href="{{ route('disposisi-surat.create',$ids) }}" class="btn btn-primary btn-sm mb-2">+ Tambah</a>
           <div class="card">
 
             <!-- /.card-header -->
@@ -32,21 +32,35 @@
                   </tr>
                 </thead>
                 <tbody>
+                    @forelse ($datas as $data)
                   <tr>
-                    <td>1</td>
-                    <td>2-10-2021</td>
-                    <td>segerakan</td>
-                    <td>Staff TU</td>
+                    <td>{{ $loop->index+1 }}</td>
+                    <td>{{ $data->tanggal_penyelesaian }}</td>
+                    <td>{{ $data->instruksi_disposisi }}</td>
+                    <td>{{ $data->tujuan_disposisi }}</td>
                     <td>
-                      <a href="#" class="btn btn-primary btn-sm">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <button class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i>
-                      </button>
+                        <div class="row">
+                            <a href="{{ url('disposisi-surat/'.$data->suratmasuk_id.'/edit'.'/'.$data->id) }}" class="btn btn-primary btn-sm mr-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ url('disposisi-surat/'.$data->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger btn-sm" type="submit">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
 
                     </td>
                   </tr>
+
+                  @empty
+                  <tr>
+                    <td colspan="10" class="text-center bg-light">DATA BELUM ADA</td>
+                  </tr>
+
+                  @endforelse
 
                 </tbody>
               </table>

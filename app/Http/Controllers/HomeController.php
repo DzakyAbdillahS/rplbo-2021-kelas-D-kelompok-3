@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DaftarSuratMasuk;
+use App\Models\LegalisirSurat;
+use App\Models\PengajuanSurat;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $jml_pengajuan = PengajuanSurat::all()->count();
+        $jml_legalisir = LegalisirSurat::all()->count();
+        return view('home',[
+            'jml_pengajuan'=>$jml_pengajuan,
+            'jml_legalisir'=>$jml_legalisir
+            ]
+        );
     }
 }

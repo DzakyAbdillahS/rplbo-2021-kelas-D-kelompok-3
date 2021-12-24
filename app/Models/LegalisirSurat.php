@@ -9,12 +9,11 @@ class LegalisirSurat extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_siswa',
+        'nama',
         'nis',
-        'alamat_siswa',
-        'no_telephone',
-        'file_berkas',
-        'isAccepted',
-        'isDone'
+        'alamat',
+        'no_telp',
+        'file_surat',
+        'status'
     ];
 }

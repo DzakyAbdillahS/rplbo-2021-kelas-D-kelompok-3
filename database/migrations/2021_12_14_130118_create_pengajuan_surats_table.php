@@ -15,6 +15,13 @@ class CreatePengajuanSuratsTable extends Migration
     {
         Schema::create('pengajuan_surats', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('nis');
+            $table->string('alamat');
+            $table->string('no_telp');
+            $table->string('jenis_surat');
+            $table->string('tujuan_surat');
+            $table->string('status');
             $table->timestamps();
         });
     }

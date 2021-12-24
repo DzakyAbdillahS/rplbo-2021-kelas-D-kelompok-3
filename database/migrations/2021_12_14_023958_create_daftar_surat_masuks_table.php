@@ -15,12 +15,12 @@ class CreateDaftarSuratMasuksTable extends Migration
     {
         Schema::create('daftar_surat_masuks', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_surat');
-            $table->string('tanggal_surat');
+            $table->string('kode_surat')->unique();
+            $table->date('tanggal_surat');
             $table->string('asal_surat');
             $table->string('index_surat');
             $table->string('file_surat');
-            $table->string('jumlah_lampiran_surat');
+            $table->string('jumlah_lampiran');
             $table->timestamps();
         });
     }

@@ -15,12 +15,12 @@ class CreateDaftarSuratKeluarsTable extends Migration
     {
         Schema::create('daftar_surat_keluars', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_surat');
+            $table->string('kode_surat')->unique();
             $table->string('tujuan_surat');
-            $table->string('tanggal_surat');
+            $table->date('tanggal_surat');
             $table->string('index_surat');
             $table->string('file_surat');
-            $table->string('jumlah_lampiran_surat');
+            $table->string('jumlah_lampiran');
             $table->timestamps();
         });
     }

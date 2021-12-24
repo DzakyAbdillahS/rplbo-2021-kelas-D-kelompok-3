@@ -18,46 +18,38 @@
         <div class="col-md-6">
 
           <!-- form start -->
-          <form>
+          <form method="POST" action="{{ url('surat-masuk/'.$data->id) }}" enctype="multipart/form-data">
+            @csrf
             <div class="card-body">
+                @method('put')
               <div class="form-group">
-                <label for="kode">Kode</label>
-                <input disabled type="text" class="form-control" id="kode" value="ab123" readonly>
+                <label for="kode_surat">Kode</label>
+                <input type="text" class="form-control" id="kode_surat" name="kode_surat" value="{{ $data->kode_surat }}" readonly>
               </div>
 
               <div class="form-group">
-                <label for="nosurat">No. Surat</label>
-                <input type="text" class="form-control" id="nosurat" value="113/ab/32">
+                <label for="tanggal_surat">Tanggal</label>
+                <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" value="{{ old('tanggal_surat') ?? $data->tanggal_surat }}">
               </div>
 
               <div class="form-group">
-                <label for="tanggal">Tanggal</label>
-                <input type="date" class="form-control" id="tanggal" value="13-11-2021">
+                <label for="asal_surat">Asal Surat</label>
+                <input type="text" class="form-control" id="asal_surat" name="asal_surat" value="{{ old('asal_surat') ?? $data->asal_surat }}">
               </div>
 
               <div class="form-group">
-                <label for="asalsurat">Asal Surat</label>
-                <input type="text" class="form-control" id="asalsurat" value="ipsum dolor sit amet">
+                <label for="index_surat">Index</label>
+                <input type="text" class="form-control" id="index_surat" name="index_surat" value="{{ old('index_surat') ?? $data->index_surat }}">
               </div>
 
               <div class="form-group">
-                <label for="index">Index</label>
-                <input type="text" class="form-control" id="index" value="ipsum dolor sit amet">
+                <label for="file_surat">File Surat</label>
+                <input type="file" class="form-control" id="file_surat" name="file_surat" value="{{ old('file_surat') ?? $data->file_surat }}">
               </div>
 
               <div class="form-group">
-                <label for="isisurat">Isi Surat</label>
-                <textarea rows="3" class="form-control" id="isisurat">ipsum dolor sit amet</textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="filesurat">File Surat</label>
-                <input type="file" class="form-control" id="filesurat" value="ipsum dolor sit amet">
-              </div>
-
-              <div class="form-group">
-                <label for="index">Jumlah Lampiran Surat</label>
-                <input type="number" class="form-control" id="index" value="ipsum dolor sit amet">
+                <label for="jumlah_lampiran">Jumlah Lampiran Surat</label>
+                <input type="number" class="form-control" id="index" name="jumlah_lampiran" value="{{ old('jumlah_lampiran') ?? $data->jumlah_lampiran }}">
               </div>
 
               <button type="submit" class="btn btn-primary">Simpan</button>

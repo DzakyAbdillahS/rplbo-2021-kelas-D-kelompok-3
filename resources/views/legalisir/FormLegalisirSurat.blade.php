@@ -18,31 +18,51 @@
         <div class="col-md-6">
 
           <!-- form start -->
-          <form>
+          <form method="POST" action="{{ route('legalisir-surat.store') }}" enctype="multipart/form-data">
+            @csrf
             <div class="card-body">
               <div class="form-group">
                 <label for="kode">Nama</label>
-                <input type="text" class="form-control" id="kode" value="John">
+                <input type="text" class="form-control" id="kode" name="nama" value="{{ Auth::user()->nama }}" readonly>
               </div>
 
               <div class="form-group">
                 <label for="nis">NIS</label>
-                <input type="text" class="form-control" id="nis" value="193">
+                <input type="text" class="form-control" id="nis" name="nis" value="{{ Auth::user()->nip_nis }}" readonly>
               </div>
 
               <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <textarea type="date" class="form-control" id="alamat" >lorem ipsum</textarea>
+                <textarea type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat"></textarea>
+                <div class="text-danger">
+                    @error('alaamt')
+                    {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="notelp">No. Telp</label>
-                <input type="text" class="form-control" id="notelp" value="081234567890">
+                <label for="no_telp">No. Telp</label>
+                <input type="number" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" name="no_telp">
+                <div class="text-danger">
+                    @error('no_telp')
+                    {{ $message }}
+                    @enderror
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="file">File</label>
-                <input type="file" class="form-control" id="file" value="surat.pdf">
+                <label for="file_surat">File</label>
+                <input type="file" class="form-control @error('file_surat') is-invalid @enderror" id="file_surat" name="file_surat">
+                <div class="text-danger">
+                    @error('file_surat')
+                    {{ $message }}
+                    @enderror
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="hidden" class="form-control" id="status" name="status" value="Menunggu Persetujuan">
               </div>
 
               <button type="submit" class="btn btn-primary">Simpan</button>

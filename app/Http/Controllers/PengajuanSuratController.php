@@ -15,7 +15,7 @@ class PengajuanSuratController extends Controller
     public function index()
     {
         $datas = PengajuanSurat::all();
-        return view('pengajuan-surat.pengajuan-surat',[
+        return view('pengajuan.PengajuanSurat',[
             'datas' => $datas]);
     }
 
@@ -26,7 +26,7 @@ class PengajuanSuratController extends Controller
      */
     public function create()
     {
-        return view('pengajuan-surat.form-pengajuan-surat');
+        return view('pengajuan.FormPengajuanSurat');
     }
 
     /**
@@ -37,16 +37,27 @@ class PengajuanSuratController extends Controller
      */
     public function store(Request $request)
     {
+        Request()->validate([
+            'nama'=>'required',
+            'nis'=>'required',
+            'alamat'=>'required',
+            'no_telp'=>'required',
+            'jenis_surat'=>'required',
+            'tujuan_surat'=>'required',
+            'status'=>'required'
+        ]);
+
         $data = $request->all();
         PengajuanSurat::create([
-            'nama_siswa'=>$data['nama_siswa'],
-            'nis'=>$data['nis'],
-            'alamat_siswa'=>$data['alamat_siswa'],
-            'no_telephone'=>$data['no_telephone'],
-            'jenis_surat'=>$data['jenis_surat'],
-            'tujuan_surat'=>$data['file_surat'],
-            'lampiran'=>$data['lampiran']
+            'nama'=>Request()->nama,
+            'nis'=>Request()->nis,
+            'alamat'=>Request()->alamat,
+            'no_telp'=>Request()->no_telp,
+            'jenis_surat'=>Request()->jenis_surat,
+            'tujuan_surat'=>Request()->tujuan_surat,
+            'status'=>Request()->status
         ]);
+        return redirect('home')->with('success', 'Surat Berhasil Diajukan!');
     }
 
     /**
@@ -66,9 +77,10 @@ class PengajuanSuratController extends Controller
      * @param  \App\Models\PengajuanSurat  $pengajuanSurat
      * @return \Illuminate\Http\Response
      */
-    public function edit(PengajuanSurat $pengajuanSurat)
+    public function edit($id)
     {
-        //
+        $data = PengajuanSurat::find($id);
+        return view('pengajuan.EditPengajuanSurat', compact('data'));
     }
 
     /**
@@ -78,9 +90,15 @@ class PengajuanSuratController extends Controller
      * @param  \App\Models\PengajuanSurat  $pengajuanSurat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PengajuanSurat $pengajuanSurat)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request ->all();
+        $pengajuan = PengajuanSurat::find($id);
+        $pengajuan->update([
+            'status'=>$data['status']
+        ]);
+
+        return redirect('pengajuan-surat')->with('success', 'Status Surat Berhasil Diubah!');
     }
 
     /**
@@ -89,8 +107,10 @@ class PengajuanSuratController extends Controller
      * @param  \App\Models\PengajuanSurat  $pengajuanSurat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PengajuanSurat $pengajuanSurat)
+    public function destroy($id)
     {
-        //
+        $pengajuan = PengajuanSurat::find($id);
+        $pengajuan->delete();
+        return redirect('pengajuan-surat')->with('success', 'Data Berhasil Dihapus!');
     }
 }

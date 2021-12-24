@@ -104,6 +104,7 @@
                 </a>
               </li>
 
+              @if (Auth::user()->role=='Staff TU' || Auth::user()->role=='Kepala Sekolah' || Auth::user()->role=='Kepala TU')
               <li class="nav-item">
                 <a href="/surat-masuk" class="nav-link">
                     <i class="nav-icon fas fa-envelope-open-text"></i>
@@ -121,7 +122,9 @@
                     </p>
                 </a>
               </li>
+              @endif
 
+              @if (Auth::user()->role!='Siswa' && Auth::user()->role!='Alumni' && Auth::user()->role!='Administrator')
               <li class="nav-item">
                 <a href="/legalisir-surat" class="nav-link">
                     <i class="nav-icon fas fa-file-signature"></i>
@@ -139,7 +142,9 @@
                     </p>
                 </a>
               </li>
+              @endif
 
+              @if (Auth::user()->role=='Administrator')
               <li class="nav-item">
                 <a href="/manajemen-user" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i>
@@ -148,6 +153,30 @@
                     </p>
                 </a>
               </li>
+              @endif
+
+
+              @if (Auth::user()->role=='Siswa')
+              <li class="nav-item">
+                <a href="/pengajuan-surat/create" class="nav-link">
+                    <i class="nav-icon fas fa-share"></i>
+                    <p>
+                    Pengajuan Surat
+                    </p>
+                </a>
+              </li>
+              @endif
+
+              @if (Auth::user()->role=='Alumni')
+              <li class="nav-item">
+                <a href="/legalisir-surat/create" class="nav-link">
+                    <i class="nav-icon fas fa-file-signature"></i>
+                    <p>
+                    Legalisir Surat
+                    </p>
+                </a>
+              </li>
+              @endif
 
         </ul>
       </nav>
@@ -163,7 +192,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer text-center">
-    <strong>Copyright &copy; 2014-2021 <a href="/">MTSN 10 Pekanbaru</a>.</strong>
+    <strong>Copyright &copy; 2021 <a href="/">MTSN 10 Pekanbaru</a>.</strong>
   </footer>
 
   <!-- Control Sidebar -->
@@ -176,6 +205,8 @@
 
 <!-- jQuery -->
 <script src="{{ url('backend/plugins/jquery/jquery.min.js') }}"></script>
+
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ url('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -208,5 +239,9 @@
 <script src="{{ url('backend/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('backend/dist/js/pages/dashboard.js') }}"></script>
+
+<script></script>
 </body>
 </html>
+
+@include('sweetalert::alert')

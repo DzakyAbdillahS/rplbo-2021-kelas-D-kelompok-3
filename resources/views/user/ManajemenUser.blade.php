@@ -50,17 +50,38 @@
                     <td>{{ $data->role }}</td>
                     <td>
                         <div class="row">
-                            <a href="{{ url('user/'.$data->id.'/edit') }}" class="btn btn-primary btn-sm mr-1">
+                            <a href="{{ url('manajemen-user/'.$data->id.'/edit') }}" class="btn btn-primary btn-sm mr-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ url('manajemen-user/'.$data->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-danger btn-sm" type="submit">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+
+                            <a class="btn btn-danger btn-sm mr-1" data-toggle="modal" data-target="#modal-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </div>
+
+                        <div class="modal fade" id="modal-sm">
+                            <div class="modal-dialog modal-sm">
+                              <div class="modal-content">
+
+                                <div class="modal-body">
+                                  <h4 class="text-center mt-1">Yakin Ingin Menghapus <br/> Data Ini?</h4>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <form action="{{ url('manajemen-user/'.$data->id) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger btn-md" type="submit">
+                                            YES
+                                        </button>
+                                    </form>
+                                </div>
+                              </div>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                          <!-- /.modal -->
 
 
                     </td>

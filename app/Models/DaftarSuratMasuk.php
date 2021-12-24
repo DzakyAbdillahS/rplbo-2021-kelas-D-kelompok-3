@@ -14,6 +14,11 @@ class DaftarSuratMasuk extends Model
         'asal_surat',
         'index_surat',
         'file_surat',
-        'jumlah_lampiran_surat'
+        'jumlah_lampiran'
     ];
+
+    use HasFactory;
+    public function disposisi_surats(){
+        return $this->hasMany(DisposisiSuratMasuk::class,'suratmasuk_id');
+    }
 }

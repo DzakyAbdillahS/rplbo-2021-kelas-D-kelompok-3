@@ -11,9 +11,9 @@ class DaftarSuratKeluar extends Model
     protected $fillable = [
         'kode_surat',
         'tujuan_surat',
-        'asal_surat',
+        'tanggal_surat',
         'index_surat',
         'file_surat',
-        'jumlah_lampiran_surat'
+        'jumlah_lampiran'
     ];
 }

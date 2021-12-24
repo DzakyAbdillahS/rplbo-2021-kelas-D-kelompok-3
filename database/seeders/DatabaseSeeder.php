@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\DaftarSuratKeluar;
 use App\Models\LegalisirSurat;
+use App\Models\PengajuanSurat;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DaftarSuratMasukSeeder::class,
             DaftarSuratKeluarSeeder::class,
+            PengajuanSuratSeeder::class,
             LegalisirSuratSeeder::class
         ]);
 
